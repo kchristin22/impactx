@@ -38,10 +38,10 @@
 #include "SoftSol.H"
 #include "SoftQuad.H"
 #include "Sol.H"
-#include "Source.H"
+// include "Source.H"
 #include "TaperedPL.H"
 #include "ThinDipole.H"
-#include "diagnostics/BeamMonitor.H"
+// include "diagnostics/BeamMonitor.H"
 
 #include <variant>
 
@@ -58,7 +58,7 @@ namespace impactx::elements
         ChrPlasmaLens,
         ChrQuad,
         ConstF,
-        diagnostics::BeamMonitor,
+        // diagnostics::BeamMonitor,
         DipEdge,
         Drift,
         ExactDrift,
@@ -78,7 +78,7 @@ namespace impactx::elements
         SoftSolenoid,
         SoftQuadrupole,
         Sol,
-        Source,
+        // Source,
         TaperedPL,
         ThinDipole
     >;
