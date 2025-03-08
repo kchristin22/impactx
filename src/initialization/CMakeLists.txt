@@ -8,6 +8,7 @@ target_sources(lib
     InitElement.cpp
     InitMeshRefinement.cpp
     InitParser.cpp
+    TransformLattice.cpp
     Validate.cpp
     Warnings.cpp
 )

@@ -7,7 +7,8 @@
 
 #include <particles/Push.H>
 #include <elements/All.H>
-#include <elements/mixin/lineartransport.H>
+#include <initialization/TransformLattice.H>
+
 #include <AMReX.H>
 
 #include <optional>
@@ -1813,4 +1814,15 @@ void init_elements(py::module& m)
             return py::make_iterator(v.begin(), v.end());
         }, py::keep_alive<0, 1>()) /* Keep list alive while iterator is used */
     ;
+
+
+    // lattice transformations
+    m.def(
+        "insert_element_every_ds",
+        &impactx::initialization::insert_element_every_ds,
+        py::arg("list"),
+        py::arg("ds"),
+        py::arg("element"),
+        "Insert an element every s into an element list"
+    );
 }
