@@ -6,7 +6,7 @@
 #
 # -*- coding: utf-8 -*-
 
-from impactx import ImpactX, distribution, elements
+from impactx import ImpactX, distribution, elements, insert_element_every_ds
 
 sim = ImpactX()
 
@@ -47,22 +47,23 @@ sim.add_particles(bunch_charge_C, distr, npart)
 monitor = elements.BeamMonitor("monitor", backend="h5")
 
 # design the accelerator lattice)
-ns = 25  # number of slices per ds in the element
+ns = 1  # number of slices per ds in the element
 fodo = [
     monitor,
     elements.Drift(name="drift1", ds=0.25, nslice=ns),
-    monitor,
     elements.Quad(name="quad1", ds=1.0, k=1.0, nslice=ns),
-    monitor,
     elements.Drift(name="drift2", ds=0.5, nslice=ns),
-    monitor,
     elements.Quad(name="quad2", ds=1.0, k=-1.0, nslice=ns),
-    monitor,
     elements.Drift(name="drift3", ds=0.25, nslice=ns),
-    monitor,
 ]
-# assign a fodo segment
-sim.lattice.extend(fodo)
+
+# insert beam monitors every 0.1m
+sim.lattice.extend(
+    insert_element_every_ds(elements.KnownElementsList(fodo), 0.1, monitor)
+)
+
+for el in sim.lattice:
+    print(el)
 
 # run simulation
 sim.track_particles()
