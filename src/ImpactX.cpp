@@ -8,12 +8,12 @@
  * License: BSD-3-Clause-LBNL
  */
 #include "ImpactX.H"
+#include "diagnostics/DiagnosticOutput.H"
+#include "elements/All.H"
+#include "diagnostics/ReducedBeamCharacteristics.H"
 #include "initialization/InitAmrCore.H"
 #include "particles/ImpactXParticleContainer.H"
 #include "particles/Push.H"
-#include "diagnostics/DiagnosticOutput.H"
-#include "particles/elements/All.H"
-#include "particles/diagnostics/ReducedBeamCharacteristics.H"
 #include "particles/wakefields/HandleWakefield.H"
 
 #include <AMReX.H>
@@ -155,13 +155,13 @@ namespace impactx {
     {
         // ns = 10  // TODO: number of slices per ds in the element
 
-        auto dr1 = Drift{2.7};
-        auto q1 = Quad{0.1, q1_k};
-        auto dr2 = Drift{1.4};
-        auto q2 = Quad{0.2, q2_k};
-        auto dr3 = Drift{1.4};
-        auto q3 = Quad{0.1, q1_k};
-        auto dr4 = Drift{2.7};
+        auto dr1 = impactx::elements::Drift{2.7};
+        auto q1 = impactx::elements::Quad{0.1, q1_k};
+        auto dr2 = impactx::elements::Drift{1.4};
+        auto q2 = impactx::elements::Quad{0.2, q2_k};
+        auto dr3 = impactx::elements::Drift{1.4};
+        auto q3 = impactx::elements::Quad{0.1, q1_k};
+        auto dr4 = impactx::elements::Drift{2.7};
         /*
         // quadrupole triplet
         // https://impactx.readthedocs.io/en/latest/usage/examples/optimize_triplet/README.html
@@ -181,7 +181,7 @@ namespace impactx {
         */
 
         //active_sim->evolve();
-        auto & pc = *active_sim->amr_data->m_particle_container;
+        auto &pc = *active_sim->amr_data->track_particles.m_particle_container;
 
         dr1(pc, 0, 0);
 
